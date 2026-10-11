@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Библиотека — Максим Батарон</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <header>
+      <div>
+        <span class="eyebrow">КУРСОВАЯ РАБОТА · ВАРИАНТ 1</span>
+        <h1>Библиотека</h1>
+        <p id="identity">maksim_bataron · Учёт выдачи книг</p>
+      </div>
+      <button id="logout" hidden>Выйти</button>
+    </header>
+    <main>
+      <section id="login-panel">
+        <h2>Вход в библиотеку</h2>
+        <p>Войдите под учётной записью библиотекаря.</p>
+        <form id="login-form">
+          <label
+            >Логин<input
+              name="username"
+              autocomplete="username"
+              required /></label
+          ><label
+            >Пароль<input
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required /></label
+          ><button class="primary">Войти</button>
+        </form>
+      </section>
+      <p id="message" role="status" aria-live="polite"></p>
+      <div id="workspace" hidden>
+        <nav>
+          <button data-screen="loans" class="primary">Выдачи</button
+          ><button data-screen="issue">Выдать книгу</button
+          ><button data-screen="summary">Сводка</button>
+        </nav>
+        <section id="loans-screen">
+          <div class="section-head">
+            <h2>Журнал выдач</h2>
+            <span id="total"></span>
+          </div>
+          <form id="filters" class="filters">
+            <label
+              >Книга или читатель<input
+                name="q"
+                placeholder="Например, Книга 00001"
+                maxlength="100" /></label
+            ><label
+              >Статус<select name="status">
+                <option value="">Все выдачи</option>
+                <option value="active">На руках (включая просроченные)</option>
+                <option value="overdue">Просроченные</option>
+                <option value="returned">Возвращённые</option>
+              </select></label
+            ><button>Найти</button>
+          </form>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Книга</th>
+                  <th>Читатель</th>
+                  <th>Срок возврата</th>
+                  <th>Статус</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="loans-body"></tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <button id="prev">← Назад</button><span id="page"></span
+            ><button id="next">Вперёд →</button>
+          </div>
+        </section>
+        <section id="detail-screen" hidden>
+          <button id="back">← К журналу</button>
+          <h2>Карточка выдачи</h2>
+          <div id="detail"></div>
+          <button id="return" class="primary">Принять возврат</button>
+        </section>
+        <section id="issue-screen" hidden>
+          <h2>Новая выдача</h2>
+          <p>
+            Выберите читателя и свободный экземпляр. Просроченные выдачи
+            блокируют новую выдачу.
+          </p>
+          <div class="columns">
+            <form id="reader-search">
+              <label
+                >Поиск читателя<input
+                  name="q"
+                  maxlength="100"
+                  placeholder="Имя читателя" /></label
+              ><button>Найти читателей</button>
+            </form>
+            <form id="copy-search">
+              <label
+                >Поиск экземпляра<input
+                  name="q"
+                  maxlength="100"
+                  placeholder="Название или INV-000200" /></label
+              ><button>Найти экземпляры</button>
+            </form>
+          </div>
+          <form id="issue-form">
+            <label
+              >Читатель (первые 50 совпадений)<select
+                id="readers"
+                name="readerId"
+                required
+              ></select></label
+            ><label
+              >Свободный экземпляр (первые 50 совпадений)<select
+                id="copies"
+                name="copyId"
+                required
+              ></select></label
+            ><label
+              >Вернуть до<input
+                id="due-date"
+                name="dueDate"
+                type="date"
+                required /></label
+            ><button class="primary">Выдать экземпляр</button>
+          </form>
+        </section>
+        <section id="summary-screen" hidden>
+          <div class="section-head">
+            <h2>Сводка по библиотеке</h2>
+            <button id="refresh-summary">Обновить</button>
+          </div>
+          <p>
+            Показатели рассчитаны по всем выдачам, независимо от фильтров
+            журнала.
+          </p>
+          <div id="stats" class="stats"></div>
+          <h3>Пять самых популярных книг</h3>
+          <ol id="popular"></ol>
+          <p class="muted">
+            Штраф — 10 ₽ за календарный день просрочки. Для возвращённых книг
+            используется дата возврата, для остальных — дата стенда. Оплата
+            штрафов в этой работе не учитывается.
+          </p>
+        </section>
+      </div>
+    </main>
+    <footer>
+      ДЗ 1 · Исходная версия без кеширования · PostgreSQL + Node.js + Express
+    </footer>
+  </body>
+</html>

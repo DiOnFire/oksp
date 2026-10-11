@@ -1,0 +1,29 @@
+{
+  "name": "maksim_bataron-library",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file=.env src/server.js",
+    "dev": "node --env-file=.env --watch src/server.js",
+    "db:init": "node --env-file=.env scripts/init-db.js",
+    "seed:small": "node --env-file=.env scripts/seed.js small --yes",
+    "seed:work": "node --env-file=.env scripts/seed.js work --yes",
+    "test": "node --test tests/*.test.js",
+    "test:integration": "node --env-file=.env --test tests/integration.js",
+    "benchmark": "node --env-file=.env scripts/benchmark.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "express": "5.2.1",
+    "pg": "8.23.0"
+  },
+  "devDependencies": {
+    "prettier": "3.9.9",
+    "supertest": "7.2.2"
+  }
+}
